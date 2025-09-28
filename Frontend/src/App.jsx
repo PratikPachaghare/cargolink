@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-      hello Cargo!
+      hello Cargo! push test
     </>
   )
 }
