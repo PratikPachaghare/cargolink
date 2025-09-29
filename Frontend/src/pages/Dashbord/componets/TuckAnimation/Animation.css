@@ -1,0 +1,14 @@
+@keyframes scroll-truck-animation {
+  0% {
+    transform: translateX(-100%); /* Bilkul screen ke left bahar se start */
+  }
+  100% {
+    transform: translateX(100vw); /* Screen ke right bahar tak */
+  }
+}
+
+.truck {
+  animation: scroll-truck-animation 11s linear infinite; /* 5s thoda smooth lagta hai */
+  width: 300px; /* Apke truck image ka fixed size rakh lo */
+  position: relative; /* Ensure ki wo move kare */
+}
