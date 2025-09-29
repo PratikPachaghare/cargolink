@@ -34,7 +34,7 @@ export default function CargoSearchBox() {
   };
 
   return (
-    <div className="min-h-screen relative -top-20 flex flex-col items-center pt-24 pb-12 font-sans">
+    <div className=" relative -top-20 flex flex-col items-center pt-24 pb-12 font-sans">
       <div className="w-full max-w-6xl mx-auto -mt-16 relative bg-white rounded-2xl shadow-xl p-2 md:p-4">
         <div className="flex flex-col lg:flex-row items-stretch">
           
@@ -85,10 +85,10 @@ export default function CargoSearchBox() {
       <div className="w-full max-w-xs absolute bottom-0 transform translate-y-1/2">
         <button
           onClick={handleSearch}
-          className="w-full relative -top-135 flex items-center justify-center space-x-3 bg-blue-500 text-white text-xl font-bold py-2 rounded-xl shadow-2xl shadow-blue-400/50 hover:bg-blue-700 transition duration-200 transform hover:scale-[1.03] focus:outline-none focus:ring-4 focus:ring-blue-300"
+          className="w-full relative -top-12 flex items-center justify-center space-x-3 bg-blue-500 text-white text-xl font-bold py-2 rounded-xl shadow-2xl shadow-blue-400/50 hover:bg-blue-700 transition duration-200 transform hover:scale-[1.03] focus:outline-none focus:ring-4 focus:ring-blue-300"
         >
           <Search className="w-6 h-5" />
-          <span>Search Freight</span>
+          <span>Search </span>
         </button>
       </div>
     </div>
