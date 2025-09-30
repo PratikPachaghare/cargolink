@@ -8,7 +8,7 @@ import WhyChooseUs from './componets/StateBox'
 
 
 
-export default function index() {
+export default function Dashbord() {
   return (
     <div>
       <MainBanner/>

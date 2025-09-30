@@ -1,9 +1,9 @@
 import React from 'react'
 
-export default function index() {
+export default function SignupPage() {
   return (
     <div>
-      Atuh page context
+      <h1>signupPage</h1>
     </div>
   )
 }
