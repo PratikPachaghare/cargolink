@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Add this import
 
 // Mock data for the vehicle categories
 const vehicles = [
@@ -17,9 +18,15 @@ const availableCities = ['Ahmedabad', 'Mumbai', 'Delhi', 'Bengaluru', 'Hyderabad
 
 const VehicleSelector = () => {
   const [selectedCity, setSelectedCity] = useState('Ahmedabad');
+  const navigate = useNavigate(); // Initialize navigate
 
   const handleCityChange = (event) => {
     setSelectedCity(event.target.value);
+  };
+
+  // Handler for card click
+  const handleVehicleClick = (vehicle) => {
+    navigate('/bookingForm', { state: { vehicle, city: selectedCity } });
   };
 
   return (
@@ -74,6 +81,7 @@ const VehicleSelector = () => {
             className="flex-shrink-0 w-[137px] h-40 bg-white rounded-xl shadow-md 
                        flex flex-col items-center justify-center p-2 cursor-pointer 
                        hover:shadow-lg transition duration-200 transform hover:-translate-y-1"
+            onClick={() => handleVehicleClick(vehicle)} // Add click handler
           >
             {/* Icon Box: Light Blue Background */}
             <div className="w-20 h-20 bg-blue-50/70 rounded-lg flex items-center justify-center mb-2">
