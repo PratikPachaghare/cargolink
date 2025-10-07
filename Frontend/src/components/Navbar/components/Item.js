@@ -7,8 +7,8 @@ const primaryNavItems = [
 ];
 
 const utilityNavItems = [
-    { name: 'Orders', icon: ClipboardList, href: '#orders' },
-    { name: 'Support', icon: HelpCircle, href: '#support' },
+    { name: 'Orders', icon: ClipboardList, href: '/orders' },
+    { name: 'Support', icon: HelpCircle, href: '/support' }, // ✔ use React Router path
 ];
 
 export {primaryNavItems, utilityNavItems};

@@ -7,8 +7,6 @@ const ProtectedRoute = () => {
   
   const location = useLocation();
 
-  // If authenticated, render the nested route components via Outlet (Dashboard in your case)
-  // Otherwise, redirect to the /signin page.
   return isAuthenticated ? (
     <Outlet />
   ) : (

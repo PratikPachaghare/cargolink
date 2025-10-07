@@ -6,22 +6,22 @@ import CargolinkFooter from "./componets/Footer";
 import Loader from "./componets/Loder/Loader";
 import { useRoutes } from "react-router-dom";
 import routes from "./Route/Routes";
+import { AuthProvider } from "./context/AuthContext";
+
 
 function App() {
   const routing = useRoutes(routes);
-  const [count, setCount] = useState(0);
   const [loading, setLoading] = useState(false);
 
-
   return (
-    <div>
+    <AuthProvider>
       {loading && <Loader />}
-      <div className="">
+      <div>
         <Navbar />
         {routing}
         <CargolinkFooter />
       </div>
-      </div>
+    </AuthProvider>
   );
 }
 
