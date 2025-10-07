@@ -3,7 +3,7 @@ import { useState } from "react";
 import "./App.css";
 import Navbar from "./componets/Navbar";
 import CargolinkFooter from "./componets/Footer";
-import Loader from "./componets/Loder/Loader";
+import Loader from "./componets/Loader/Loader";
 import { useRoutes } from "react-router-dom";
 import routes from "./Route/Routes";
 
@@ -15,7 +15,7 @@ function App() {
 
   return (
     <div>
-      {loading && <Loader />}
+      {loading && <Loader/>}
       <div className="">
         <Navbar />
         {routing}
