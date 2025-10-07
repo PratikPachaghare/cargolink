@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 
 
-const ProtectedRoute = () => {
+const ProtectedRoutes = () => {
   const [isAuthenticated] = useState(true); 
   
   const location = useLocation();
@@ -16,4 +16,4 @@ const ProtectedRoute = () => {
   );
 };
 
-export default ProtectedRoute;
+export default ProtectedRoutes;

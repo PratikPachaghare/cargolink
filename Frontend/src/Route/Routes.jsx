@@ -1,23 +1,26 @@
 import React from "react";
 import ErrorContent from "../componets/NotFound/NotFound404";
-import SigninPage from "../pages/Auth/SigninPage";
-import SignupPage from "../pages/Auth/signupPage";
+
+
 import Dashbord from "../pages/Dashbord";
-import ProtectedRoute from "./ProtectedRouts";
+
 import BookingPage from "../pages/Booking";
+import SignInPage from "../pages/Auth/SigninPage";
+import SignUpPage from "../pages/Auth/SignupPage";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 const routes = [
   {
     path: "/signin",
-    element: <SigninPage />,
+    element: <SignInPage />,
   },
   {
     path: "/signup",
-    element: <SignupPage />,
+    element: <SignUpPage />,
   }, 
   {
     path: "/",
-    element: <ProtectedRoute />,
+    element: <ProtectedRoutes />,
     children: [
       { path: "/", element: <Dashbord/> },
       { path: "/bookingForm", element: <BookingPage/> },
