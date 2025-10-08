@@ -21,11 +21,6 @@ const routes = [
     path: "/",
     element: <ProtectedRoute />, // must include <Outlet /> inside ProtectedRoute
     children: [
-<<<<<<< HEAD
-      { path: "/", element: <Dashbord/> },
-      { path: "/bookingForm", element: <BookingPage/> },
-    //   { path: "/about", element: <About /> },
-    //   { path: "/createOrder", element: <CreateOrder />,},
 
       {
         path: "", // default route
@@ -38,7 +33,7 @@ const routes = [
       // Optional nested routes example:
       // { path: "about", element: <About /> },
       // { path: "orders", element: <Orders /> },
->>>>>>> a2b4327 (Update app, routes, dashboard, and components structure)
+
     ],
   },
   {
