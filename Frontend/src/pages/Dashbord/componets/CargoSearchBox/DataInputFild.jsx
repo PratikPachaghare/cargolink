@@ -22,7 +22,7 @@ const DateInputField = ({ date, setDate }) => (
         {/* Today / Tomorrow Buttons (using blue theme) */}
         <div className="flex space-x-3 mt-2">
             <button className="text-sm font-semibold px-4 py-1.5 rounded-lg bg-blue-100 text-blue-700 transition duration-150 hover:bg-blue-200">
-                Today
+                Todays
             </button>
             <button className="text-sm font-semibold px-4 py-1.5 rounded-lg bg-sky-100 text-sky-700 transition duration-150 hover:bg-sky-200">
                 Tomorrow
