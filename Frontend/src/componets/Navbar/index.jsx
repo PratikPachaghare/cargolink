@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import {
   Truck,
   Map,
@@ -13,8 +13,10 @@ import { primaryNavItems, utilityNavItems } from "./componets/Item";
 import NavItem from "./componets/NavItem";
 import UserDropdown from "./componets/UserDropdown";
 import LogoImage from "../../assets/Mainlogo.png";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+  const navigate = useNavigate();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
@@ -27,7 +29,7 @@ export default function Navbar() {
           {/* Left Section: Logo and Primary Links (Desktop) */}
           <div className="flex items-center">
             {/* Logo/Brand */}
-            <div className="flex-shrink-0 flex items-center">
+            <div className="flex-shrink-0 flex items-center cursor-pointer" onClick={()=>navigate("/")}>
               <img
                 src={LogoImage}
                 alt="CargoLink Logo"
@@ -40,27 +42,18 @@ export default function Navbar() {
             </div>
 
             {/* Primary Navigation Links (Desktop) */}
-            <div className="hidden md:ml-10 md:flex md:space-x-4">
+            <div className="md:ml-10 md:flex md:space-x-4 " >
               {primaryNavItems.map((item) => (
-                <NavItem key={item.name} item={item} />
+                <NavItem item={item} />
               ))}
             </div>
           </div>
 
           {/* Right Section: Utility and Account (Desktop) */}
-          <div className="hidden md:ml-6 md:flex md:items-center space-x-4 text-white">
+          <div className="hidden md:ml-6 md:flex md:items-center space-x-4">
             {/* Utility Icons/Links */}
             {utilityNavItems.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                className="flex items-center space-x-2 p-2 rounded-lg hover:text-sky-300 transition duration-150"
-              >
-                <item.icon className="w-6 h-6" />
-                <span className="text-sm font-semibold hidden lg:inline">
-                  {item.name}
-                </span>
-              </a>
+                <NavItem item={item} />
             ))}
 
             {/* Account Dropdown */}

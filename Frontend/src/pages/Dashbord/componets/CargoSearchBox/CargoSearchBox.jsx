@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { Plane, Ship, Calendar, Search, Repeat2 } from "lucide-react";
 import InputField from "./InputsFilds";
 import DateInputField from "./DataInputFild";
 import FCLToggle from "./FCLToggle";
+import { useNavigate } from "react-router-dom";
 
 export default function CargoSearchBox() {
   const [origin, setOrigin] = useState("Mumbai, India");
   const [destination, setDestination] = useState("Hamburg, Germany");
   const [date, setDate] = useState("2025-10-15");
   const [isFCL, setIsFCL] = useState(false);
-
+  const navigate = useNavigate();
   // 🔹 Location data array
   const locations = [
     "Mumbai, India",
@@ -27,11 +28,17 @@ export default function CargoSearchBox() {
     setDestination(origin);
   };
 
-  const handleSearch = () => {
-    console.log(
-      `Searching for cargo from ${origin} to ${destination} on ${date}. FCL: ${isFCL}`
-    );
-  };
+const handleSearch = () => {
+  navigate("/rideOnTheWay", {
+    state: {
+      from: origin,
+      to: destination,
+      date,
+      isFCL,
+    },
+  });
+};
+
 
   return (
     <div className=" relative -top-20 flex flex-col items-center pt-24 pb-12 font-sans">

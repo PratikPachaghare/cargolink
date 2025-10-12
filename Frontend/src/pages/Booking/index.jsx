@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Truck, Box, LocateFixed, Calendar, Send, Compass, User, Scale, Fuel } from 'lucide-react';
+import vehicleImage from '../../assets/407Image.jpeg'; // Placeholder image
 
-import vehicleImage from '../../assets/407Image.jpeg' // Placeholder image for vehicle visualization
-// Vehicle Data (Mock Data)
+// Mock vehicle data
 const mockVehicle = {
   id: 'TRK-4521',
   type: 'Heavy Duty Trailer',
@@ -14,11 +15,12 @@ const mockVehicle = {
   fuelEfficiency: '4.5 MPG',
 };
 
-/**
- * Utility to display a percentage bar.
- */
+// Capacity Bar Component
 const CapacityBar = ({ percentage }) => {
-  const color = percentage > 75 ? 'bg-red-500' : percentage > 50 ? 'bg-yellow-500' : 'bg-blue-500';
+  const color =
+    percentage > 75 ? 'bg-red-500' :
+    percentage > 50 ? 'bg-yellow-500' :
+    'bg-blue-500';
 
   return (
     <div className="w-full bg-gray-200 rounded-full h-2.5">
@@ -31,9 +33,7 @@ const CapacityBar = ({ percentage }) => {
   );
 };
 
-/**
- * Left Panel: Displays the vehicle's detailed information and capacity.
- */
+// Vehicle Detail Card
 const VehicleDetailCard = ({ vehicle }) => (
   <div className="p-6 bg-white rounded-xl shadow-lg border border-blue-100 h-full">
     <h2 className="text-2xl font-extrabold text-blue-800 mb-4 flex items-center">
@@ -58,7 +58,7 @@ const VehicleDetailCard = ({ vehicle }) => (
         <Compass className="w-4 h-4 mr-2 text-blue-400" />
         <span className="font-semibold">Next Stop:</span> {vehicle.nextDestination}
       </div>
-       <div className="flex items-center">
+      <div className="flex items-center">
         <Fuel className="w-4 h-4 mr-2 text-blue-400" />
         <span className="font-semibold">Fuel Econ:</span> {vehicle.fuelEfficiency}
       </div>
@@ -79,7 +79,7 @@ const VehicleDetailCard = ({ vehicle }) => (
         <p className="text-sm font-medium text-gray-600 mb-1">
           Available: <span className="font-bold text-green-600">{vehicle.availableCapacity}%</span>
         </p>
-        <CapacityBar percentage={vehicle.reservedCapacity} /> {/* Using reserved for visual consistency, but logic shows opposite */}
+        <CapacityBar percentage={vehicle.availableCapacity} />
       </div>
       <p className="mt-3 text-xs text-gray-500">
         Total usage is based on both weight and volume constraints.
@@ -88,9 +88,7 @@ const VehicleDetailCard = ({ vehicle }) => (
   </div>
 );
 
-/**
- * Right Panel: Vehicle visualization (using a placeholder image/SVG).
- */
+// Vehicle Visualization Panel
 const VehicleVisualization = ({ vehicle }) => (
   <div className="p-6 bg-blue-600 rounded-xl shadow-xl flex flex-col justify-between items-center text-white h-full lg:min-h-[400px]">
     <div className="text-center mb-6">
@@ -98,17 +96,10 @@ const VehicleVisualization = ({ vehicle }) => (
       <p className="text-blue-200">Tracking {vehicle.type}</p>
     </div>
     
-    {/* Placeholder for Vehicle Image/Map */}
     <img 
-        src={vehicleImage}
-        alt="Visual representation of a logistics truck"
-        className="w-full max-w-sm rounded-lg shadow-2xl transition-transform transform hover:scale-[1.02]"
-        onError={(e) => {
-            // Fallback for image loading error
-            e.target.onerror = null; 
-            e.target.src = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round' class='lucide lucide-truck'><path d='M5 18H3c-1.1 0-2-.9-2-2V7c0-1.1.9-2 2-2h14c1.1 0 2 .9 2 2v10l-2 2h-3.5a2.5 2.5 0 0 1-5 0H5z'/><circle cx='7.5' cy='18.5' r='2.5'/><circle cx='17.5' cy='18.5' r='2.5'/></svg>";
-            e.target.className = "w-24 h-24 text-white mx-auto my-10";
-        }}
+      src={vehicleImage}
+      alt="Vehicle Visual"
+      className="w-full max-w-sm rounded-lg shadow-2xl transition-transform transform hover:scale-[1.02]"
     />
 
     <div className="mt-6 text-center">
@@ -117,9 +108,7 @@ const VehicleVisualization = ({ vehicle }) => (
   </div>
 );
 
-/**
- * Bottom Section: Booking/Reservation Form.
- */
+// Booking Form
 const BookingForm = () => {
   const [formData, setFormData] = useState({
     from: '',
@@ -137,24 +126,9 @@ const BookingForm = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Booking Request Submitted:', formData);
-    // In a real app, this would be an API call to create a new booking
-    alert('Booking request simulated. Check console for data.');
+    console.log('Booking Data:', formData);
+    alert('Booking request submitted! Check console for details.');
   };
-  
-  // Custom alert/message box function
-  const alert = (message) => {
-    const modal = document.getElementById('message-modal');
-    const messageContent = document.getElementById('modal-message-content');
-    if (messageContent && modal) {
-      messageContent.textContent = message;
-      modal.classList.remove('hidden');
-    }
-  };
-
-  const closeModal = () => {
-    document.getElementById('message-modal')?.classList.add('hidden');
-  }
 
   const InputField = ({ label, name, type = 'text', icon: Icon, required = false, placeholder = '' }) => (
     <div className="flex flex-col">
@@ -181,102 +155,52 @@ const BookingForm = () => {
         New Cargo Reservation
       </h2>
       <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        
-        {/* Row 1: From & To */}
-        <InputField 
-          label="Origin Location (From)" 
-          name="from" 
-          icon={Send} 
-          required={true} 
-          placeholder="e.g., Warehouse A, City"
-        />
-        <InputField 
-          label="Destination Location (To)" 
-          name="to" 
-          icon={LocateFixed} 
-          required={true} 
-          placeholder="e.g., Client Site B, State"
-        />
+        <InputField label="Origin Location (From)" name="from" icon={Send} required placeholder="Warehouse A, City"/>
+        <InputField label="Destination Location (To)" name="to" icon={LocateFixed} required placeholder="Client Site B"/>
+        <InputField label="Cargo Type" name="cargoType" icon={Box} required placeholder="e.g., Palletized Goods"/>
+        <InputField label="Estimated Weight (kg)" name="weight" type="number" icon={Scale} required placeholder="5000"/>
+        <InputField label="Ready Date" name="readyDate" type="date" icon={Calendar} required />
+        <InputField label="Contact Person Name" name="contactName" icon={User} required placeholder="John Smith"/>
 
-        {/* Row 2: Cargo Type & Weight */}
-        <InputField 
-          label="Cargo Type" 
-          name="cargoType" 
-          icon={Box} 
-          required={true} 
-          placeholder="e.g., Palletized Goods, Bulk Chemicals"
-        />
-        <InputField 
-          label="Estimated Weight (kg)" 
-          name="weight" 
-          type="number" 
-          icon={Scale} 
-          required={true} 
-          placeholder="e.g., 5000"
-        />
-
-        {/* Row 3: Ready Date & Contact */}
-        <InputField 
-          label="Ready Date" 
-          name="readyDate" 
-          type="date" 
-          icon={Calendar} 
-          required={true} 
-        />
-        <InputField 
-          label="Contact Person Name" 
-          name="contactName" 
-          icon={User} 
-          required={true} 
-          placeholder="e.g., John Smith"
-        />
-
-        {/* Submit Button */}
         <div className="md:col-span-2 pt-4">
           <button
             type="submit"
-            className="w-full flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition duration-300 ease-in-out transform hover:scale-[1.01] hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-blue-300"
+            className="w-full flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-xl shadow-lg transition duration-300 transform hover:scale-[1.01]"
           >
-            <Send className="w-5 h-5 mr-2" />
-            Submit Reservation Request
+            <Send className="w-5 h-5 mr-2" /> Submit Reservation Request
           </button>
         </div>
       </form>
-      
-      {/* Custom Modal/Message Box */}
-      <div id="message-modal" className="fixed inset-0 bg-gray-600 bg-opacity-50 flex items-center justify-center hidden z-50">
-        <div className="bg-white p-6 rounded-lg shadow-2xl w-full max-w-sm">
-          <h3 className="text-xl font-bold text-blue-600 mb-3">Submission Status</h3>
-          <p id="modal-message-content" className="text-gray-700 mb-4"></p>
-          <button 
-            onClick={closeModal}
-            className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
-          >
-            Close
-          </button>
-        </div>
-      </div>
-      
     </div>
   );
 };
 
+// Main Booking Page
+const BookingPage = () => {
+  const navigate = useNavigate();
 
-/**
- * Main Application Component
- */
-const BookingPage= () => {
   return (
     <div className="min-h-screen bg-gray-50 p-4 sm:p-8 font-inter">
-      <script src="https://cdn.tailwindcss.com"></script>
       <div className="max-w-7xl mx-auto">
-        
+
+        {/* Back Button */}
+        <div className="mb-4">
+          <button
+            onClick={() => navigate(-1)}
+            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+          >
+            ← Back
+          </button>
+        </div>
+
         {/* Header */}
         <header className="mb-8 p-4 bg-blue-600 rounded-xl shadow-lg">
-          <h1 className="text-4xl font-black text-white">CargoLink <span className="font-light text-blue-200">Fleet Management</span></h1>
+          <h1 className="text-4xl font-black text-white">
+            CargoLink <span className="font-light text-blue-200">Fleet Management</span>
+          </h1>
         </header>
 
-        {/* Main Content: Vehicle Info & Visualization */}
+        {/* Main Content */}
         <main className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <VehicleDetailCard vehicle={mockVehicle} />
           <VehicleVisualization vehicle={mockVehicle} />
@@ -286,15 +210,6 @@ const BookingPage= () => {
         <section className="mt-8">
           <BookingForm />
         </section>
-        
-        {/* Tailwind Config for Inter Font */}
-        <style dangerouslySetInnerHTML={{__html: `
-            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
-            .font-inter {
-                font-family: 'Inter', sans-serif;
-            }
-        `}} />
-
       </div>
     </div>
   );
