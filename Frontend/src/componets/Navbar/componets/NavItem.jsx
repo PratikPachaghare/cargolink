@@ -1,13 +1,18 @@
-import React, { useState } from 'react';
+import React, { use, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-const NavItem = ({ item }) => (
-    <a 
-        href={item.href} 
-        className="flex items-center no-underline space-x-2 text-white hover:text-sky-300 hover:bg-blue-700/50 p-2 rounded-lg transition-all duration-200"
+export default function NavItem({ item }) {
+    const navigate = useNavigate();
+  return (
+    <div
+      className="flex items-center cursor-pointer space-x-2 p-2 rounded-lg  text-white hover:text-sky-300 transition duration-150"
+      key={item.name}
+      onClick={() => navigate(`${item.route}`)}
     >
-        <item.icon className="w-5 h-5" />
-        <span className="font-medium text-sm">{item.name}</span>
-    </a>
-);
-
-export default NavItem;
+      <item.icon className="w-6 h-6" />
+      <span className="text-sm font-semibold lg:inline">
+        {item.name}
+      </span>
+    </div>
+  );
+}
