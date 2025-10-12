@@ -95,7 +95,7 @@ const handleSearch = () => {
           className="w-full relative -top-12 flex items-center justify-center space-x-3 bg-blue-500 text-white text-xl font-bold py-2 rounded-xl shadow-2xl shadow-blue-400/50 hover:bg-blue-700 transition duration-200 transform hover:scale-[1.03] focus:outline-none focus:ring-4 focus:ring-blue-300"
         >
           <Search className="w-6 h-5" />
-          <span>Search vihical</span>
+          <span>Search vehical</span>
         </button>
       </div>
     </div>
